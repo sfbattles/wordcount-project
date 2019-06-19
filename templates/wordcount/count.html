@@ -1,0 +1,31 @@
+{% extends "wordcount/base.html" %}
+
+{% block content %}
+    <h2>There are {{ wordcountkey }} word in your text</h2> 
+    <h1>Your Text</h1>
+    <h5>{{ fulltextkey }}</h5>
+    <a class="btn btn-secondary" href="{% url 'wordhome' %}">Enter New Text</a>
+    <h3> List Of words</h3>
+     <table class="table table-light table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Word</th>
+                <th scope="col">Frequency</th>
+            </tr>
+        </thead>    
+            {% for word, counttotal in sorted_words %}   
+                <tbody>
+                    {% if counttotal > 50 %}                
+                        <tr class="table-success">
+                    {% else %}
+                        <tr class="table-info">    
+                    {% endif %}
+                        <th scope="row">{{ forloop.counter }}</th>                
+                        <td>{{ word }}</td>
+                        <td>{{ counttotal }}</td>
+                    </tr>               
+                </tbody>
+            {% endfor%}
+    </table>
+{% endblock content %}
